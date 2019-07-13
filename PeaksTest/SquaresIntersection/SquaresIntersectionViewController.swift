@@ -31,6 +31,12 @@ class SquaresIntersectionViewController: UIViewController {
 private extension SquaresIntersectionViewController {
     func setupUI() {
         view.backgroundColor = .white
+        setupLayout()
+    }
+
+    func setupLayout() {
+        view.addSubview(redView)
+        view.addSubview(blueView)
     }
 
     func bindViewModel() {
@@ -114,12 +120,10 @@ private extension SquaresIntersectionViewController {
             redView.frame.size = viewFrame.size
             redView.center = viewFrame.origin
             redView.backgroundColor = .red
-            view.addSubview(redView)
         case .blue:
             blueView.frame.size = viewFrame.size
             blueView.center = viewFrame.origin
             blueView.backgroundColor = .blue
-            view.addSubview(blueView)
         }
     }
 

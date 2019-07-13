@@ -4,7 +4,7 @@
 import Foundation
 import RxSwift
 
-enum GestureEventType {
+enum PanGestureEventType {
     case changed
     case ended
 }
@@ -12,7 +12,7 @@ enum GestureEventType {
 struct PanGestureDataSource {
     let startPoint: CGPoint
     let translationPoint: CGPoint
-    let type: GestureEventType
+    let type: PanGestureEventType
 }
 
 protocol SquaresIntersectionViewModelType {
@@ -40,7 +40,6 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
     }
 
     func transform(input: SquaresIntersectionViewModel.Input) -> SquaresIntersectionViewModel.Output {
-
         let rectangleDataSource = input
             .startTrigger
             .flatMapLatest { _ in
@@ -54,16 +53,28 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
             .panGestureRed
             .flatMapLatest { dataSource -> Observable<CGPoint?> in
                 guard let dataSource = dataSource else { return .just(nil) }
-                return .just(self.getDestinationPoint(startPoint: dataSource.startPoint,
-                                                      translationPoint: dataSource.translationPoint))
+                let destinationPoint = self.getDestinationPoint(startPoint: dataSource.startPoint,
+                                                                translationPoint: dataSource.translationPoint)
+
+                if case dataSource.type = PanGestureEventType.ended {
+                    self.respository.savePosition(position: destinationPoint, type: .red)
+                }
+
+                return .just(destinationPoint)
         }
 
         let destinationPointBlue = input
             .panGestureBlue
             .flatMapLatest { dataSource -> Observable<CGPoint?> in
                 guard let dataSource = dataSource else { return .just(nil) }
-                return .just(self.getDestinationPoint(startPoint: dataSource.startPoint,
-                                                      translationPoint: dataSource.translationPoint))
+                let destinationPoint = self.getDestinationPoint(startPoint: dataSource.startPoint,
+                                                                translationPoint: dataSource.translationPoint)
+
+                if case dataSource.type = PanGestureEventType.ended {
+                    self.respository.savePosition(position: destinationPoint, type: .blue)
+                }
+
+                return .just(destinationPoint)
         }
 
         return Output(dataSource: rectangleDataSource,
@@ -77,7 +88,7 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
     }
 
     func mapToRectanglesDataSource(rectangles: [Rectangle]) -> [RectangleDataSource] {
-        let rectangleRed = rectangles[0] //If id was provided, then we could have make it generic.
+        let rectangleRed = rectangles[0]
         let rectangleBlue = rectangles[1]
         return [mapToRectangleDataSource(rectangle: rectangleRed, type: .red),
                 mapToRectangleDataSource(rectangle: rectangleBlue, type: .blue)]
@@ -89,6 +100,6 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
 }
 
 struct RectangleDataSource {
-    let x, y, size: Double
+    let x, y, size: Float
     let type: RectangleType
 }
