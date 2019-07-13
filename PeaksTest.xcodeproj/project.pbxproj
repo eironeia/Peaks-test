@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		606C0B338CAA26446F3A1222 /* Pods_PeaksTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A55DDEAE995C24CA0DED7381 /* Pods_PeaksTest.framework */; };
 		6155F74E22D8616C003FA67A /* SquaresIntersectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6155F74D22D8616C003FA67A /* SquaresIntersectionViewModel.swift */; };
+		615F402B22DA3187004128C0 /* SquaresInteresectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F402A22DA3187004128C0 /* SquaresInteresectionRepository.swift */; };
+		615F402E22DA36F0004128C0 /* RectanglesJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 615F402D22DA36F0004128C0 /* RectanglesJSON.json */; };
 		6184F12722D7A1010080CC7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184F12622D7A1010080CC7F /* AppDelegate.swift */; };
 		6184F12922D7A1010080CC7F /* SquaresIntersectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184F12822D7A1010080CC7F /* SquaresIntersectionViewController.swift */; };
 		6184F12E22D7A1030080CC7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6184F12D22D7A1030080CC7F /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		6155F74D22D8616C003FA67A /* SquaresIntersectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaresIntersectionViewModel.swift; sourceTree = "<group>"; };
+		615F402A22DA3187004128C0 /* SquaresInteresectionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaresInteresectionRepository.swift; sourceTree = "<group>"; };
+		615F402D22DA36F0004128C0 /* RectanglesJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RectanglesJSON.json; sourceTree = "<group>"; };
 		6184F12322D7A1010080CC7F /* PeaksTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeaksTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6184F12622D7A1010080CC7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6184F12822D7A1010080CC7F /* SquaresIntersectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaresIntersectionViewController.swift; sourceTree = "<group>"; };
@@ -86,10 +90,19 @@
 		6155F74C22D8613B003FA67A /* SquaresIntersection */ = {
 			isa = PBXGroup;
 			children = (
+				615F402A22DA3187004128C0 /* SquaresInteresectionRepository.swift */,
 				6155F74D22D8616C003FA67A /* SquaresIntersectionViewModel.swift */,
 				6184F12822D7A1010080CC7F /* SquaresIntersectionViewController.swift */,
 			);
 			path = SquaresIntersection;
+			sourceTree = "<group>";
+		};
+		615F402C22DA36CD004128C0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				615F402D22DA36F0004128C0 /* RectanglesJSON.json */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		6184F11A22D7A1010080CC7F = {
@@ -115,6 +128,7 @@
 		6184F12522D7A1010080CC7F /* PeaksTest */ = {
 			isa = PBXGroup;
 			children = (
+				615F402C22DA36CD004128C0 /* Mocks */,
 				6184F12622D7A1010080CC7F /* AppDelegate.swift */,
 				6184F13222D7A1030080CC7F /* Info.plist */,
 				6184F12D22D7A1030080CC7F /* Assets.xcassets */,
@@ -226,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6184F13122D7A1030080CC7F /* LaunchScreen.storyboard in Resources */,
+				615F402E22DA36F0004128C0 /* RectanglesJSON.json in Resources */,
 				6184F12E22D7A1030080CC7F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +304,7 @@
 				6184F12922D7A1010080CC7F /* SquaresIntersectionViewController.swift in Sources */,
 				6155F74E22D8616C003FA67A /* SquaresIntersectionViewModel.swift in Sources */,
 				6184F12722D7A1010080CC7F /* AppDelegate.swift in Sources */,
+				615F402B22DA3187004128C0 /* SquaresInteresectionRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
