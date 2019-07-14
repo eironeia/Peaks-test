@@ -6,11 +6,23 @@ import RxSwift
 import RxCocoa
 
 class SquaresIntersectionViewController: UIViewController {
-    
+
+    private let intersectionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.layer.zPosition = 1
+        return label
+    }()
     private var redView = UIView()
     private var blueView = UIView()
     private let viewModel: SquaresIntersectionViewModelType
     private let newPositionSubject = PublishSubject<RectangleNewPoisitionDescriptor>()
+    private let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.roundingMode = .down
+        return numberFormatter
+    }()
     private lazy var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -39,6 +51,10 @@ private extension SquaresIntersectionViewController {
     func setupLayout() {
         view.addSubview(redView)
         view.addSubview(blueView)
+        intersectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(intersectionLabel)
+        NSLayoutConstraint.activate([intersectionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     intersectionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
     }
     
     func bindViewModel() {
@@ -68,12 +84,28 @@ private extension SquaresIntersectionViewController {
             .drive()
             .disposed(by: disposeBag)
 
-        getPanGestureObservableFrom(superview: view, view: redView, type: .red)
-            .asDriverOnErrorJustComplete()
-            .drive()
-            .disposed(by: disposeBag)
+        let panGestureRedObservable = getPanGestureObservableFrom(superview: view, view: redView, type: .red)
+            .do(onNext: { [weak self] _ in
+                guard let self = self else {
+                    assertionFailure("Self is nil")
+                    return
+                }
+                self.setIntersection(mainFrame: self.redView.frame, secondaryFrame: self.blueView.frame)
+        })
 
-        getPanGestureObservableFrom(superview: view, view: blueView, type: .blue)
+        let panGestureBlueObservable = getPanGestureObservableFrom(superview: view, view: blueView, type: .blue)
+            .do(onNext: { [weak self] _ in
+                guard let self = self else {
+                    assertionFailure("Self is nil")
+                    return
+                }
+                self.setIntersection(mainFrame: self.blueView.frame, secondaryFrame: self.redView.frame)
+            })
+
+        let panGestureObservable = Observable.merge(panGestureRedObservable,
+                                                    panGestureBlueObservable)
+
+        panGestureObservable
             .asDriverOnErrorJustComplete()
             .drive()
             .disposed(by: disposeBag)
@@ -100,6 +132,7 @@ private extension SquaresIntersectionViewController {
                     let yPosition = Float(destinationPoint.y / superview.frame.height)
                     let descriptor = RectangleNewPoisitionDescriptor(x: xPosition, y: yPosition, type: type)
                     newPositionSubject?.onNext(descriptor)
+
                 default: return
                 }
             })
@@ -129,6 +162,13 @@ private extension SquaresIntersectionViewController {
         let size = CGSize(width: viewFrame.width * size,
                           height: viewFrame.height * size)
         return CGRect(origin: origin, size: size)
+    }
+
+    func setIntersection(mainFrame: CGRect, secondaryFrame: CGRect) {
+        let intersection = mainFrame.intersection(secondaryFrame)
+        let width = numberFormatter.string(from: NSNumber(value: Float(intersection.size.width))) ?? "-"
+        let height = numberFormatter.string(from: NSNumber(value: Float(intersection.size.height))) ?? "-"
+        intersectionLabel.text = "(\(width), \(height))"
     }
 }
 
