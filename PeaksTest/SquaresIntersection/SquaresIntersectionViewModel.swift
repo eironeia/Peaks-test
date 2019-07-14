@@ -4,15 +4,10 @@
 import Foundation
 import RxSwift
 
-enum PanGestureEventType {
-    case changed
-    case ended
-}
-
-struct PanGestureDataSource {
-    let startPoint: CGPoint
-    let translationPoint: CGPoint
-    let type: PanGestureEventType
+struct RectangleNewPoisitionDescriptor {
+    let x: Float
+    let y: Float
+    let type: RectangleType
 }
 
 protocol SquaresIntersectionViewModelType {
@@ -28,15 +23,12 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
 
     struct Input {
         let startTrigger: Observable<Void>
-        let panGestureRed: Observable<PanGestureDataSource?>
-        let panGestureBlue: Observable<PanGestureDataSource?>
+        let newPoisition: Observable<RectangleNewPoisitionDescriptor>
     }
 
     struct Output {
         let dataSource: Observable<[RectangleDataSource]>
-        let destinationPointRed: Observable<CGPoint?>
-        let destinationPointBlue: Observable<CGPoint?>
-
+        let actions: Observable<Void>
     }
 
     func transform(input: SquaresIntersectionViewModel.Input) -> SquaresIntersectionViewModel.Output {
@@ -49,42 +41,16 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
             }
             .map(mapToRectanglesDataSource)
 
-        let destinationPointRed = input
-            .panGestureRed
-            .flatMapLatest { dataSource -> Observable<CGPoint?> in
-                guard let dataSource = dataSource else { return .just(nil) }
-                let destinationPoint = self.getDestinationPoint(startPoint: dataSource.startPoint,
-                                                                translationPoint: dataSource.translationPoint)
-
-                if case dataSource.type = PanGestureEventType.ended {
-                    self.respository.savePosition(position: destinationPoint, type: .red)
-                }
-
-                return .just(destinationPoint)
-        }
-
-        let destinationPointBlue = input
-            .panGestureBlue
-            .flatMapLatest { dataSource -> Observable<CGPoint?> in
-                guard let dataSource = dataSource else { return .just(nil) }
-                let destinationPoint = self.getDestinationPoint(startPoint: dataSource.startPoint,
-                                                                translationPoint: dataSource.translationPoint)
-
-                if case dataSource.type = PanGestureEventType.ended {
-                    self.respository.savePosition(position: destinationPoint, type: .blue)
-                }
-
-                return .just(destinationPoint)
-        }
+        let saveNewPosition = input
+            .newPoisition
+            .do(onNext: { descriptor in
+                self.respository
+                    .savePosition(descriptor: descriptor)
+            })
+            .mapToVoid()
 
         return Output(dataSource: rectangleDataSource,
-                      destinationPointRed: destinationPointRed,
-                      destinationPointBlue: destinationPointBlue)
-    }
-
-    func getDestinationPoint(startPoint: CGPoint, translationPoint: CGPoint) -> CGPoint {
-        return CGPoint(x: startPoint.x + translationPoint.x,
-                       y: startPoint.y + translationPoint.y)
+                      actions: saveNewPosition)
     }
 
     func mapToRectanglesDataSource(rectangles: [Rectangle]) -> [RectangleDataSource] {

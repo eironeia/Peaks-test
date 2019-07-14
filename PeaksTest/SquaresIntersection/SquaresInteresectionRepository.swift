@@ -13,7 +13,7 @@ enum RectangleType {
 
 protocol SquaresInteresectionRepositoryType {
     func getSquares() -> Single<[Rectangle]>
-    func savePosition(position: CGPoint, type: RectangleType)
+    func savePosition(descriptor: RectangleNewPoisitionDescriptor)
 }
 
 struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
@@ -33,14 +33,14 @@ struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
         return .just(rectangles)
     }
 
-    func savePosition(position: CGPoint, type: RectangleType) {
-        switch type {
+    func savePosition(descriptor: RectangleNewPoisitionDescriptor) {
+        switch descriptor.type {
         case .red:
-            userDefaults.set(Float(position.x), forKey: UserDefaultsKeys.blueXPosition.rawValue)
-            userDefaults.set(Float(position.y), forKey: UserDefaultsKeys.blueYPosition.rawValue)
+            userDefaults.set(descriptor.x, forKey: UserDefaultsKeys.redXPosition.rawValue)
+            userDefaults.set(descriptor.y, forKey: UserDefaultsKeys.redYPosition    .rawValue)
         case .blue:
-            userDefaults.set(position.x, forKey: UserDefaultsKeys.blueXPosition.rawValue)
-            userDefaults.set(position.y, forKey: UserDefaultsKeys.blueYPosition.rawValue)
+            userDefaults.set(descriptor.x, forKey: UserDefaultsKeys.blueXPosition.rawValue)
+            userDefaults.set(descriptor.y, forKey: UserDefaultsKeys.blueYPosition.rawValue)
         }
         userDefaults.synchronize()
     }
