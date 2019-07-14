@@ -4,12 +4,12 @@
 import Foundation
 import RxSwift
 
-protocol SquaresInteresectionRepositoryType {
-    func getSquares() -> Single<[Rectangle]>
+protocol RectanglesInteresectionRepositoryType {
+    func getRectangles() -> Single<[Rectangle]>
     func savePosition(descriptor: RectangleNewPoisitionDescriptor)
 }
 
-struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
+struct RectanglesInteresectionRepository: RectanglesInteresectionRepositoryType {
     private let userDefaults = UserDefaults.standard
 
     private enum UserDefaultsKeys: String {
@@ -19,8 +19,8 @@ struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
         case blueYPosition
     }
 
-    func getSquares() -> Single<[Rectangle]> {
-        guard let rectangles = fetchSquares() else {
+    func getRectangles() -> Single<[Rectangle]> {
+        guard let rectangles = fetchRectangles() else {
             return .error(NSError()) //This is for demo purposes
         }
         return .just(rectangles)
@@ -38,7 +38,7 @@ struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
         userDefaults.synchronize()
     }
 
-    func fetchSquares() -> [Rectangle]? {
+    func fetchRectangles() -> [Rectangle]? {
         guard let path = Bundle.main.path(forResource: "RectanglesJSON", ofType: "json"),
         let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path)),
             let result = try? JSONDecoder().decode(Rectangles.self, from: jsonData) else {

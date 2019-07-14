@@ -5,7 +5,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SquaresIntersectionViewController: UIViewController {
+class RectanglesIntersectionViewController: UIViewController {
 
     private let intersectionLabel: UILabel = {
         let label = UILabel()
@@ -15,7 +15,7 @@ class SquaresIntersectionViewController: UIViewController {
     }()
     private var redView = UIView()
     private var blueView = UIView()
-    private let viewModel: SquaresIntersectionViewModelType
+    private let viewModel: RectanglesIntersectionViewModelType
     private let newPositionSubject = PublishSubject<RectangleNewPoisitionDescriptor>()
     private let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
@@ -31,7 +31,7 @@ class SquaresIntersectionViewController: UIViewController {
         bindViewModel()
     }
     
-    init(viewModel: SquaresIntersectionViewModelType) {
+    init(viewModel: RectanglesIntersectionViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,7 +41,7 @@ class SquaresIntersectionViewController: UIViewController {
     }
 }
 
-private extension SquaresIntersectionViewController {
+private extension RectanglesIntersectionViewController {
     func setupUI() {
         view.backgroundColor = .white
         setupLayout()
@@ -61,7 +61,7 @@ private extension SquaresIntersectionViewController {
             .sentMessage(#selector(UIViewController.viewWillAppear(_:)))
             .mapToVoid()
 
-        let input = SquaresIntersectionViewModel.Input(startTrigger: startTrigger,
+        let input = RectanglesIntersectionViewModel.Input(startTrigger: startTrigger,
                                                        newPoisition: newPositionSubject)
         let output = viewModel.transform(input: input)
 

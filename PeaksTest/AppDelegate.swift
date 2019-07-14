@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func setup(window: UIWindow) {
         self.window = window
-        let repository = SquaresInteresectionRepository()
-        let viewModel = SquaresIntersectionViewModel(repository: repository)
-        window.rootViewController = SquaresIntersectionViewController(viewModel: viewModel)
+        let repository = RectanglesInteresectionRepository()
+        let viewModel = RectanglesIntersectionViewModel(repository: repository)
+        window.rootViewController = RectanglesIntersectionViewController(viewModel: viewModel)
         window.makeKeyAndVisible()
     }
 }

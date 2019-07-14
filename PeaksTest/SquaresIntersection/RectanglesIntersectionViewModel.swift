@@ -10,14 +10,14 @@ struct RectangleNewPoisitionDescriptor {
     let type: RectangleType
 }
 
-protocol SquaresIntersectionViewModelType {
-    func transform(input: SquaresIntersectionViewModel.Input) -> SquaresIntersectionViewModel.Output
+protocol RectanglesIntersectionViewModelType {
+    func transform(input: RectanglesIntersectionViewModel.Input) -> RectanglesIntersectionViewModel.Output
 }
 
-struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
-    private let respository: SquaresInteresectionRepositoryType
+struct RectanglesIntersectionViewModel: RectanglesIntersectionViewModelType {
+    private let respository: RectanglesInteresectionRepositoryType
 
-    init(repository: SquaresInteresectionRepositoryType) {
+    init(repository: RectanglesInteresectionRepositoryType) {
         self.respository = repository
     }
 
@@ -31,12 +31,12 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
         let actions: Observable<Void>
     }
 
-    func transform(input: SquaresIntersectionViewModel.Input) -> SquaresIntersectionViewModel.Output {
+    func transform(input: RectanglesIntersectionViewModel.Input) -> RectanglesIntersectionViewModel.Output {
         let rectangleDataSource = input
             .startTrigger
             .flatMapLatest { _ in
                 self.respository
-                    .getSquares()
+                    .getRectangles()
                     .asObservable()
             }
             .map(mapToRectanglesDataSource)
