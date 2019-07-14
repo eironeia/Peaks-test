@@ -11,6 +11,11 @@
 		6155F74E22D8616C003FA67A /* SquaresIntersectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6155F74D22D8616C003FA67A /* SquaresIntersectionViewModel.swift */; };
 		615F402B22DA3187004128C0 /* SquaresInteresectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F402A22DA3187004128C0 /* SquaresInteresectionRepository.swift */; };
 		615F402E22DA36F0004128C0 /* RectanglesJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 615F402D22DA36F0004128C0 /* RectanglesJSON.json */; };
+		615F403222DB3048004128C0 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F403122DB3048004128C0 /* Observable+Extension.swift */; };
+		615F403422DB30BE004128C0 /* RectangleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F403322DB30BE004128C0 /* RectangleDataSource.swift */; };
+		615F403622DB30EC004128C0 /* RectangleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F403522DB30EC004128C0 /* RectangleType.swift */; };
+		615F403822DB3116004128C0 /* Rectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F403722DB3116004128C0 /* Rectangles.swift */; };
+		615F403A22DB3132004128C0 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F403922DB3132004128C0 /* Rectangle.swift */; };
 		6184F12722D7A1010080CC7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184F12622D7A1010080CC7F /* AppDelegate.swift */; };
 		6184F12922D7A1010080CC7F /* SquaresIntersectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184F12822D7A1010080CC7F /* SquaresIntersectionViewController.swift */; };
 		6184F12E22D7A1030080CC7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6184F12D22D7A1030080CC7F /* Assets.xcassets */; };
@@ -45,6 +50,11 @@
 		6155F74D22D8616C003FA67A /* SquaresIntersectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaresIntersectionViewModel.swift; sourceTree = "<group>"; };
 		615F402A22DA3187004128C0 /* SquaresInteresectionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaresInteresectionRepository.swift; sourceTree = "<group>"; };
 		615F402D22DA36F0004128C0 /* RectanglesJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RectanglesJSON.json; sourceTree = "<group>"; };
+		615F403122DB3048004128C0 /* Observable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
+		615F403322DB30BE004128C0 /* RectangleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleDataSource.swift; sourceTree = "<group>"; };
+		615F403522DB30EC004128C0 /* RectangleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleType.swift; sourceTree = "<group>"; };
+		615F403722DB3116004128C0 /* Rectangles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangles.swift; sourceTree = "<group>"; };
+		615F403922DB3132004128C0 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		6184F12322D7A1010080CC7F /* PeaksTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeaksTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6184F12622D7A1010080CC7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6184F12822D7A1010080CC7F /* SquaresIntersectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaresIntersectionViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +100,7 @@
 		6155F74C22D8613B003FA67A /* SquaresIntersection */ = {
 			isa = PBXGroup;
 			children = (
+				615F402F22DB3030004128C0 /* Models */,
 				615F402A22DA3187004128C0 /* SquaresInteresectionRepository.swift */,
 				6155F74D22D8616C003FA67A /* SquaresIntersectionViewModel.swift */,
 				6184F12822D7A1010080CC7F /* SquaresIntersectionViewController.swift */,
@@ -103,6 +114,25 @@
 				615F402D22DA36F0004128C0 /* RectanglesJSON.json */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		615F402F22DB3030004128C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				615F403322DB30BE004128C0 /* RectangleDataSource.swift */,
+				615F403522DB30EC004128C0 /* RectangleType.swift */,
+				615F403722DB3116004128C0 /* Rectangles.swift */,
+				615F403922DB3132004128C0 /* Rectangle.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		615F403022DB303D004128C0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				615F403122DB3048004128C0 /* Observable+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		6184F11A22D7A1010080CC7F = {
@@ -128,6 +158,7 @@
 		6184F12522D7A1010080CC7F /* PeaksTest */ = {
 			isa = PBXGroup;
 			children = (
+				615F403022DB303D004128C0 /* Extensions */,
 				615F402C22DA36CD004128C0 /* Mocks */,
 				6184F12622D7A1010080CC7F /* AppDelegate.swift */,
 				6184F13222D7A1030080CC7F /* Info.plist */,
@@ -301,8 +332,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				615F403622DB30EC004128C0 /* RectangleType.swift in Sources */,
 				6184F12922D7A1010080CC7F /* SquaresIntersectionViewController.swift in Sources */,
 				6155F74E22D8616C003FA67A /* SquaresIntersectionViewModel.swift in Sources */,
+				615F403A22DB3132004128C0 /* Rectangle.swift in Sources */,
+				615F403822DB3116004128C0 /* Rectangles.swift in Sources */,
+				615F403422DB30BE004128C0 /* RectangleDataSource.swift in Sources */,
+				615F403222DB3048004128C0 /* Observable+Extension.swift in Sources */,
 				6184F12722D7A1010080CC7F /* AppDelegate.swift in Sources */,
 				615F402B22DA3187004128C0 /* SquaresInteresectionRepository.swift in Sources */,
 			);

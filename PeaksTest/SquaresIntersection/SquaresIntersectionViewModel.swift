@@ -64,8 +64,3 @@ struct SquaresIntersectionViewModel: SquaresIntersectionViewModelType {
         return RectangleDataSource(x: rectangle.x, y: rectangle.y, size: rectangle.size, type: type)
     }
 }
-
-struct RectangleDataSource {
-    let x, y, size: Float
-    let type: RectangleType
-}

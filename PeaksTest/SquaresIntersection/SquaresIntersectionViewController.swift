@@ -33,7 +33,6 @@ class SquaresIntersectionViewController: UIViewController {
     
     init(viewModel: SquaresIntersectionViewModelType) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -169,17 +168,5 @@ private extension SquaresIntersectionViewController {
         let width = numberFormatter.string(from: NSNumber(value: Float(intersection.size.width))) ?? "-"
         let height = numberFormatter.string(from: NSNumber(value: Float(intersection.size.height))) ?? "-"
         intersectionLabel.text = "(\(width), \(height))"
-    }
-}
-
-extension ObservableType {
-    func asDriverOnErrorJustComplete() -> Driver<Element> {
-        return asDriver { error in
-            return Driver.empty()
-        }
-    }
-    
-    func mapToVoid() -> Observable<Void> {
-        return map { _ in }
     }
 }

@@ -4,13 +4,6 @@
 import Foundation
 import RxSwift
 
-// I feel like the JSON should provide identifiers for the rectangles
-// and not having to handle this logic on the frontend.
-enum RectangleType {
-    case red
-    case blue
-}
-
 protocol SquaresInteresectionRepositoryType {
     func getSquares() -> Single<[Rectangle]>
     func savePosition(descriptor: RectangleNewPoisitionDescriptor)
@@ -37,7 +30,7 @@ struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
         switch descriptor.type {
         case .red:
             userDefaults.set(descriptor.x, forKey: UserDefaultsKeys.redXPosition.rawValue)
-            userDefaults.set(descriptor.y, forKey: UserDefaultsKeys.redYPosition    .rawValue)
+            userDefaults.set(descriptor.y, forKey: UserDefaultsKeys.redYPosition.rawValue)
         case .blue:
             userDefaults.set(descriptor.x, forKey: UserDefaultsKeys.blueXPosition.rawValue)
             userDefaults.set(descriptor.y, forKey: UserDefaultsKeys.blueYPosition.rawValue)
@@ -74,23 +67,7 @@ struct SquaresInteresectionRepository: SquaresInteresectionRepositoryType {
     func clean() {
         userDefaults.removeObject(forKey: UserDefaultsKeys.redXPosition.rawValue)
         userDefaults.removeObject(forKey: UserDefaultsKeys.redYPosition.rawValue)
-        userDefaults.removeObject(forKey: UserDefaultsKeys.redXPosition.rawValue)
-        userDefaults.removeObject(forKey: UserDefaultsKeys.redXPosition.rawValue)
+        userDefaults.removeObject(forKey: UserDefaultsKeys.blueXPosition.rawValue)
+        userDefaults.removeObject(forKey: UserDefaultsKeys.blueYPosition.rawValue)
     }
-}
-
-// MARK: - Rectangles
-struct Rectangles: Codable {
-    let rectangles: [Rectangle]
-
-    enum CodingKeys: String, CodingKey {
-        case rectangles
-    }
-}
-
-// MARK: - Rectangle
-struct Rectangle: Codable {
-    let x: Float
-    let y: Float
-    let size: Float
 }
