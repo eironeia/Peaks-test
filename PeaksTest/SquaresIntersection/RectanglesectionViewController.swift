@@ -19,6 +19,7 @@ class RectanglesIntersectionViewController: UIViewController {
     private let newPositionSubject = PublishSubject<RectangleNewPoisitionDescriptor>()
     private let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
+        numberFormatter.minimumIntegerDigits = 1
         numberFormatter.maximumFractionDigits = 2
         numberFormatter.roundingMode = .down
         return numberFormatter
